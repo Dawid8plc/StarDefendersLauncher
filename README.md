@@ -6,7 +6,8 @@
 This is the source code for the Star Defenders Launcher, which is a launcher for the game called [Star Defenders 2D](https://github.com/Eric-Gurt/StarDefenders2D/)
 
 # Requirements
-To use this program, you will need to have .Net Framework 4.8 installed
++ Windows operating system
++ .Net Framework 4.8
 
 # Features
 + Profiles - Allows you to have multiple characters on servers

@@ -1,0 +1,495 @@
+<html>
+    <head>
+	<title>Star Defenders - Launcher</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<style>
+	    @font-face {
+		font-family: "ui_font";
+		src: url("/assets/fonts/CozetteVector.ttf") format("truetype");
+	    }
+	    
+	    *
+	    {
+		font-family: ui_font, Verdana;
+		cursor: url(/assets/cursor_2x.png), auto;
+		}
+
+	    body
+	    {
+		user-select: none;
+		font-size: 12px;
+		background: repeating-linear-gradient( -45deg, black 0px, black 5.1px, #0b0b0b 5.1px, #0b0b0b 10.2px );
+		height: 100%;
+		overflow: hidden;
+		background-blend-mode: overlay;
+		transition: background-color 1s ease;
+		position:fixed;
+		left:0;
+		top:0;
+		}
+	    *::-moz-selection { background-color: #ffffff; color: #000000; }
+	    *::selection {background-color: #ffffff;color: #000000;}
+	    input
+	    {
+		font-size: 12px;
+		
+		border: none;
+		background-color: #414141;
+		padding: 6px;
+		height: 30px;
+		color: white;
+		border-radius: 0;
+		outline: none;
+		margin-top: 3px;
+	    }
+	    input:active
+	    {
+		background-color: #000000;
+	    }
+	    input[type=color]
+	    {
+		background-color: #111111;
+		padding: 1px;
+		height: 20px;
+	    }
+	    input::-webkit-color-swatch
+	    {
+		border: 1px solid black;
+	    }
+	    input[type=button]:active
+	    {
+		background-color: black !important;
+	    }
+	    
+	    
+	    input[type=checkbox]
+	    {
+		width: 20px;
+		height: 20px;
+		vertical-align: middle;
+	    }
+	    input[type=checkbox]::after
+	    {
+		display: block;
+		content: " ";
+		position: absolute;
+		width: 220px;
+		height: 20px;
+		box-sizing: border-box;
+	    }
+	    input[type=button]
+	    {
+		padding-left: 12px;
+		padding-right: 12px;
+	    }
+	    
+	    
+	    
+	    
+	    input:hover, input:focus
+	    {
+		background-color: #425380 !important;
+	    }
+	    .set_block
+	    {
+		display: inline-block;
+		vertical-align: top;
+		width: 163px;
+		padding-bottom: 10px;
+		/*transition: all 0.2s ease;*/
+		color: transparent;
+		height: 15px;
+		padding: 10px;
+		background-color: transparent;
+		position: relative;
+		user-select: none;
+	    }
+	    .set_block *
+	    {
+		pointer-events: none;
+		opacity: 0;
+		display: none;
+	    }
+	    .set_block:focus-within *
+	    {
+		pointer-events: unset;
+		opacity: 1;
+		display: unset;
+	    }
+	    .set_block .sdtitle
+	    {
+		opacity: 1 !important;
+		display: block;
+	    }
+	    .set_block input
+	    {
+		height: 0;
+		opacity: 0;
+	    }
+	    .set_block label
+	    {
+		/*font-size: 70%;*/
+	    }
+	    .set_block:hover
+	    {
+		background-color: #0d1710;
+	    }
+	    .set_block:focus-within
+	    {
+		font-size: unset;
+		color: unset;
+		height: auto;
+		max-height: 150px;
+		background-color: #1e3424;
+		outline: none;
+		overflow-x: hidden;
+		overflow-y: auto;
+		
+		margin-bottom: -100%;
+		z-index:1000;
+		
+		
+	    }
+	    .set_block:focus-within::-webkit-scrollbar
+	    {
+		width: 12px;
+		height: 12px;
+		background-color: #1e3424;
+	    }
+	    .set_block:focus-within::-webkit-scrollbar-thumb
+	    {
+		background-color: white;
+		box-shadow: inset 0 0 0px 5px #1e3424;
+	    }
+	    .set_block:focus-within input
+	    {
+		height: 10px;
+		opacity: 1;
+		pointer-events: unset;
+	    }
+	    .sdtitle
+	    {
+		color: #5ce98a;
+		/*font-size: 12px;*/
+	    }
+	    .sdgroup
+	    {
+		padding:5px;
+		padding-top:10px;
+		color:#666666;
+	    }
+	    a, a:link, a:visited
+	    {
+		color: #6f87ac;
+		text-decoration: none;
+	    }
+	    a:hover
+	    {
+		color:white;
+	    }
+	    a:active
+	    {
+		color:black;
+	    }
+	    
+	    
+	    .serverA, .serverA:link, .serverA:visited
+	    {
+		color: #82b4ff;
+	    }
+	    .serverB, .serverB:link, .serverB:visited
+	    {
+		color: white;
+	    }
+	    .serverC, .serverC:link, .serverC:visited
+	    {
+		color: #58ea99;
+	    }
+		
+	    .server, .server:link, .server:visited
+	    {
+		display:block;
+		padding:5px;
+	    }
+	    .server:hover
+	    {
+		color: #ff7aef;
+	    }
+	    .server:active
+	    {
+		color: #000000;
+	    }
+	    .server div
+	    {
+		opacity: 0.3;
+	    }
+	    
+	    .r_conteiner
+	    {
+		display:block;
+		padding:1vh;
+		background-color:rgba(0,0,0,0.35); /* 0.2 */
+		border-radius:1vh;
+		vertical-align: middle;
+		border:0px;
+		
+		pointer-events: none;
+		
+		-webkit-touch-callout: none; /* iOS Safari */
+		-webkit-user-select: none; /* Safari */
+		-khtml-user-select: none; /* Konqueror HTML */
+		-moz-user-select: none; /* Old versions of Firefox */
+		-ms-user-select: none; /* Internet Explorer/Edge */
+		user-select: none; /* Non-prefixed version, currently
+				supported by Chrome, Edge, Opera and Firefox */
+	    }
+	    #twitch_player_div, #youtube_player_div
+	    {
+		pointer-events: none;
+		position: fixed;
+		left: 0px;
+		top: 0px;
+		z-index: 100;
+		display: none;
+	    }
+
+		::-webkit-scrollbar {
+			width: 10px;
+		}
+
+		::-webkit-scrollbar-track {
+			background: #333333; 
+		}
+		
+		::-webkit-scrollbar-thumb {
+			background: #888; 
+		}
+		
+		::-webkit-scrollbar-thumb:hover {
+			background: #555; 
+		}
+	</style>
+    </head>
+    <body>
+
+	<div id="settings_container" style="
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		margin-left: -150px;
+		margin-top: -30px;
+		display: block;
+		background-color: black;
+		width: 300px;
+		height: 60px;
+		color: white;
+		padding: 20px;
+		box-sizing: border-box;
+		visibility: hidden;">
+		
+	    <div style="
+    position: absolute;
+    right: 20px;
+    top: -50px;
+    font-size: 30px;
+    color: #2f2f2f;
+    text-align: right;
+    "><span style="color:#ffffff5e" id="game_title_text">Star Defenders</span><br>
+		<div style="font-size:12px;color:#355a52;">Launcher</div>
+	    </div>
+		
+	    <label style="padding-left: 90px;">Connecting...</label>
+        <br>
+	</div>
+
+	<div id="settings_container2" style="
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		margin-left: -150px;
+		margin-top: -325px;
+		display: block;
+		background-color: black;
+		width: 300px;
+		height: 680px;
+		color: white;
+		padding: 20px;
+		box-sizing: border-box;
+		">
+		
+	    <div style="
+    position: absolute;
+    right: 20px;
+    top: -50px;
+    font-size: 30px;
+    color: #2f2f2f;
+    text-align: right;
+    "><span style="color:#ffffff5e" id="game_title_text">Star Defenders</span><br>
+		<div style="font-size:12px;color:#355a52;">Launcher</div>
+	    </div>
+		<span class="sdtitle">Servers:</span>
+		<div style=" top:0; width: 280px; height: 85%;
+		box-sizing: border-box; background-color: black;
+		overflow-y: auto;">
+
+		<div id="slist" class="sdgroup">
+
+		    
+		</div>
+	    </div>
+
+		<br>
+		<input type="button" style="background-color:#333333; width: 127px;" onclick="GoAddServer();" value="Add Server">
+		<input type="button" style="background-color:#333333; width: 127px;" onclick="ServerListObject.changeprofile();" value="Change Profile">
+		<input type="button" style="background-color:#333333; width: 258px;" onclick="ServerListObject.quit();" value="Quit">
+		
+        <br>
+	</div>
+
+
+
+
+	<div id="addserver" style="
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -150px;
+	margin-top: -135px;
+	display: block;
+	background-color: black;
+	width: 300px;
+	height: 270px;
+	color: white;
+	padding: 20px;
+	box-sizing: border-box;
+	visibility: hidden;">
+	
+	<div style="
+position: absolute;
+right: 20px;
+top: -50px;
+font-size: 30px;
+color: #2f2f2f;
+text-align: right;
+"><span style="color:#ffffff5e" id="game_title_text">Star Defenders</span><br>
+	<div style="font-size:12px;color:#355a52;">Launcher</div>
+	</div>
+	
+	<!-- <label style="padding-left: 90px;">Connecting...</label> -->
+		<span class="sdtitle">Server IP or URL (Required):</span><br>
+	    <input type="text" id="serverip" size="32" maxlength="32" value="">
+		<br><br>
+		<span class="sdtitle">Location:</span><br>
+	    <input type="text" id="serverlocation" size="32" maxlength="32" value="">
+		<br><br>
+		<span class="sdtitle">Description:</span><br>
+	    <input type="text" id="serverdesc" size="32" maxlength="32" value="">
+
+		<br><br>
+		<input type="button" style="background-color:#333333; width: 127px;" onclick="AddServer();" value="Add">
+		<input type="button" style="background-color:#333333; width: 127px;" onclick="CancelServer();" value="Cancel">
+	<br>
+</div>
+
+	<script>
+		let ServerList;
+		let slist = document.getElementById("slist");
+		let serversdiv = document.getElementById('settings_container2');
+		let connectingdiv = document.getElementById('settings_container');
+		let addserver = document.getElementById('addserver');
+
+		let serverip = document.getElementById('serverip');
+		let serverlocation = document.getElementById('serverlocation');
+		let serverdesc = document.getElementById('serverdesc');
+
+		async function init(){
+			await CefSharp.BindObjectAsync("ServerListObject");
+
+			UpdateList();
+		}
+
+		function Connect(IP){
+			ServerListObject.connect(IP);
+			serversdiv.style.visibility = 'hidden';
+			connectingdiv.style.visibility = 'visible';
+		}
+
+		function UpdateList(){
+			slist.innerHTML = "";
+
+			ServerListObject.getServers().then(function (res)
+			{
+				ServerList = res;
+
+				for (var i = 0; i < ServerList.length; i++)
+				{
+					var name = ServerList[i].IP;
+					if(name.startsWith("https://"))
+						name = name.substring(8);
+
+					if(name.startsWith("http://"))
+						name = name.substring(7);
+
+					slist.innerHTML += `<a class="server server${ServerList[i].Type}" onclick="Connect('${ServerList[i].IP}')">
+					${name}
+					<div>${ServerList[i].Location}<br>${ServerList[i].Description}</div>
+					${ServerList[i].BuiltIn ? "" : `<input type="button" style="background-color:#333333; width: 235px;" onclick="RemoveServer(event, ${i});" value="Remove">`}
+					</a>`;
+				}
+			});
+		}
+
+		function GoAddServer()
+		{
+			serverip.value = "";
+			serverlocation.value = "";
+			serverdesc.value = "";
+
+			serversdiv.style.visibility = 'hidden';
+			addserver.style.visibility = 'visible';
+		}
+
+		function AddServer(){
+			let IP = serverip.value;
+			let Location = serverlocation.value;
+			let Desc = serverdesc.value;
+
+			ServerListObject.addserver(IP, Location, Desc).then(function (res)
+			{
+				if(res){
+					UpdateList();
+					CancelServer();
+				}
+			});
+		}
+
+		function RemoveServer(e, server){
+			e.stopPropagation();
+
+			ServerListObject.removeserver(server).then(function ()
+			{
+				UpdateList();
+			});
+		}
+
+		function CancelServer(){
+			addserver.style.visibility = 'hidden';
+			serversdiv.style.visibility = 'visible';
+		}
+
+		//run it once
+		serversdiv.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
+		connectingdiv.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
+		addserver.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
+
+		onresize = (event) => {
+			serversdiv.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
+			connectingdiv.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
+			addserver.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
+		};
+
+		init();
+	</script>
+    </body>
+</html>

@@ -17,6 +17,7 @@ namespace StarDefendersLauncher.Dialogs
             DRPBox.Checked = SettingsManager.Settings.RichPresenceEnabled;
             IgnoreLoadErrorsBox.Checked = SettingsManager.Settings.IgnoreLoadErrors;
             fullscreenBox.Checked = SettingsManager.Settings.Fullscreen;
+            hideBIServersBox.Checked = SettingsManager.Settings.HideBuiltInServers;
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
@@ -36,6 +37,7 @@ namespace StarDefendersLauncher.Dialogs
             SettingsManager.Settings.RichPresenceEnabled = DRPBox.Checked;
             SettingsManager.Settings.IgnoreLoadErrors = IgnoreLoadErrorsBox.Checked;
             SettingsManager.Settings.Fullscreen = fullscreenBox.Checked;
+            SettingsManager.Settings.HideBuiltInServers = hideBIServersBox.Checked;
 
             SettingsManager.Save();
 

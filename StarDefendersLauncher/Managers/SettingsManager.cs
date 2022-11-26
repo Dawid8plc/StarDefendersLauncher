@@ -45,5 +45,6 @@ namespace StarDefendersLauncher.Managers
         public bool RichPresenceEnabled = true;
         public bool IgnoreLoadErrors = false;
         public bool Fullscreen = false;
+        public bool HideBuiltInServers = false;
     }
 }

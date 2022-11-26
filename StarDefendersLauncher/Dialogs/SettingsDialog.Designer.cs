@@ -37,12 +37,17 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.hideBIServersBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Black;
+            this.panel1.Controls.Add(this.hideBIServersBox);
             this.panel1.Controls.Add(this.fullscreenBox);
             this.panel1.Controls.Add(this.IgnoreLoadErrorsBox);
             this.panel1.Controls.Add(this.DRPBox);
@@ -51,7 +56,7 @@
             this.panel1.Controls.Add(this.saveBtn);
             this.panel1.Location = new System.Drawing.Point(37, 48);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(380, 159);
+            this.panel1.Size = new System.Drawing.Size(380, 199);
             this.panel1.TabIndex = 2;
             // 
             // fullscreenBox
@@ -59,7 +64,7 @@
             this.fullscreenBox.AutoSize = true;
             this.fullscreenBox.Font = new System.Drawing.Font("Verdana", 8.25F);
             this.fullscreenBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(174)))), ((int)(((byte)(120)))));
-            this.fullscreenBox.Location = new System.Drawing.Point(21, 92);
+            this.fullscreenBox.Location = new System.Drawing.Point(21, 60);
             this.fullscreenBox.Name = "fullscreenBox";
             this.fullscreenBox.Size = new System.Drawing.Size(129, 17);
             this.fullscreenBox.TabIndex = 7;
@@ -71,7 +76,7 @@
             this.IgnoreLoadErrorsBox.AutoSize = true;
             this.IgnoreLoadErrorsBox.Font = new System.Drawing.Font("Verdana", 8.25F);
             this.IgnoreLoadErrorsBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(174)))), ((int)(((byte)(120)))));
-            this.IgnoreLoadErrorsBox.Location = new System.Drawing.Point(21, 60);
+            this.IgnoreLoadErrorsBox.Location = new System.Drawing.Point(21, 126);
             this.IgnoreLoadErrorsBox.Name = "IgnoreLoadErrorsBox";
             this.IgnoreLoadErrorsBox.Size = new System.Drawing.Size(134, 17);
             this.IgnoreLoadErrorsBox.TabIndex = 6;
@@ -103,12 +108,13 @@
             // 
             // cancelBtn
             // 
+            this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
             this.cancelBtn.FlatAppearance.BorderSize = 0;
             this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelBtn.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cancelBtn.ForeColor = System.Drawing.Color.White;
-            this.cancelBtn.Location = new System.Drawing.Point(289, 118);
+            this.cancelBtn.Location = new System.Drawing.Point(289, 158);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
             this.cancelBtn.TabIndex = 3;
@@ -118,12 +124,13 @@
             // 
             // saveBtn
             // 
+            this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.saveBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
             this.saveBtn.FlatAppearance.BorderSize = 0;
             this.saveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveBtn.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.saveBtn.ForeColor = System.Drawing.Color.White;
-            this.saveBtn.Location = new System.Drawing.Point(198, 118);
+            this.saveBtn.Location = new System.Drawing.Point(198, 158);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
             this.saveBtn.TabIndex = 2;
@@ -143,12 +150,24 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Settings";
             // 
+            // hideBIServersBox
+            // 
+            this.hideBIServersBox.AutoSize = true;
+            this.hideBIServersBox.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.hideBIServersBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(174)))), ((int)(((byte)(120)))));
+            this.hideBIServersBox.Location = new System.Drawing.Point(21, 92);
+            this.hideBIServersBox.Name = "hideBIServersBox";
+            this.hideBIServersBox.Size = new System.Drawing.Size(140, 17);
+            this.hideBIServersBox.TabIndex = 8;
+            this.hideBIServersBox.Text = "Hide built in servers";
+            this.hideBIServersBox.UseVisualStyleBackColor = true;
+            // 
             // SettingsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::StarDefendersLauncher.Properties.Resources.Screenshot_2;
-            this.ClientSize = new System.Drawing.Size(449, 248);
+            this.ClientSize = new System.Drawing.Size(449, 288);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
@@ -175,5 +194,6 @@
         private System.Windows.Forms.CheckBox DRPBox;
         private System.Windows.Forms.CheckBox IgnoreLoadErrorsBox;
         private System.Windows.Forms.CheckBox fullscreenBox;
+        private System.Windows.Forms.CheckBox hideBIServersBox;
     }
 }

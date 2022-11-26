@@ -54,8 +54,21 @@ namespace StarDefendersLauncher.Managers
 
         internal static List<Server> GetServers()
         {
-            List<Server> allServers = new List<Server>(ServerList.Count + UserList.Count);
-            allServers.AddRange(ServerList); allServers.AddRange(UserList);
+            List<Server> allServers;
+            if (!SettingsManager.Settings.HideBuiltInServers)
+            {
+                allServers = new List<Server>(ServerList.Count + UserList.Count);
+                allServers.AddRange(ServerList); allServers.AddRange(UserList);
+            }
+            else
+            {
+                allServers = new List<Server>(UserList.Count + 1);
+
+                //localhost is a special case, so I think it should stay
+                allServers.Add(new Server() { IP = "localhost:3000", Type = "A", Location = "Your local server", Description = "", BuiltIn = true });
+
+                allServers.AddRange(UserList);
+            }
 
             return allServers;
         }

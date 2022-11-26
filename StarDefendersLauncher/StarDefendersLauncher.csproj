@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\PermissionHandler.cs" />
     <Compile Include="Managers\ServersManager.cs" />
     <Compile Include="Dialogs\SettingsDialog.cs">
       <SubType>Form</SubType>

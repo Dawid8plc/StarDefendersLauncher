@@ -48,8 +48,13 @@ namespace StarDefendersLauncher
 
             DM = new DiscordManager();
 
+            BrowserSettings BS = new BrowserSettings();
+            BS.JavascriptAccessClipboard = CefState.Enabled;
+
+            browser.BrowserSettings = BS;
             browser.KeyboardHandler = new KeyboardHandler(form: this);
             browser.MenuHandler = new MenuHandler();
+            browser.PermissionHandler = new PermissionHandler();
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.LoadError += Browser_LoadError;
 

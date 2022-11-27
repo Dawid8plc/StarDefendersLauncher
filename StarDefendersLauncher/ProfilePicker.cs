@@ -39,6 +39,10 @@ namespace StarDefendersLauncher
             for (int i = 0; i < Profiles.Count; i++)
             {
                 ProfileCard card = new ProfileCard(Path.GetFileName(Profiles[i]), i % 2 == 0);
+
+                if(Profiles.Count >= 6)
+                    card.Width = 447;
+
                 flowLayoutPanel1.Controls.Add(card);
             }
         }

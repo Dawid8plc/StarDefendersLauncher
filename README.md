@@ -10,7 +10,7 @@ This is the source code for the Star Defenders Launcher, which is a launcher for
 + .Net Framework 4.8
 
 # Download
-The latest version can always be downloaded from [here](https://github.com/Dawid8plc/StarDefendersLauncher/releases/latest)
+The latest version can always be downloaded from [here](https://github.com/Dawid8plc/StarDefendersLauncher/releases/latest/download/Star.Defenders.Launcher.zip)
 
 # Features
 + Profiles - Allows you to have multiple characters on servers

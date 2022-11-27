@@ -22,6 +22,11 @@ namespace StarDefendersLauncher
             return ServersManager.GetServers();
         }
 
+        public List<Skin> getSkins()
+        {
+            return SkinsManager.Skins;
+        }
+
         public void connect(string ip)
         {
             if (ip.StartsWith("localhost"))
@@ -60,6 +65,28 @@ namespace StarDefendersLauncher
             ID = ID - ServersManager.ServerList.Count;
             ServersManager.UserList.RemoveAt(ID);
             ServersManager.Save();
+        }
+
+        public void removeskin(int ID)
+        {
+            SkinsManager.Skins.RemoveAt(ID);
+            SkinsManager.Save();
+        }
+
+        public bool exportdata(int ID, string Name)
+        {
+            if (!string.IsNullOrWhiteSpace(Name))
+            {
+                form.ExportData(ServersManager.GetServers()[ID].IP, Name);
+                return true;
+            }
+
+            return false;
+        }
+
+        public void importdata(int ServerID, int SkinID)
+        {
+            form.ImportData(ServersManager.GetServers()[ServerID].IP, SkinsManager.Skins[SkinID]);
         }
     }
 }

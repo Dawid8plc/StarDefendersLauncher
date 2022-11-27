@@ -392,16 +392,107 @@ text-align: right;
 	<br>
 </div>
 
+
+<div id="exportdialog" style="
+position: fixed;
+top: 50%;
+left: 50%;
+margin-left: -150px;
+margin-top: -70px;
+display: block;
+background-color: black;
+width: 300px;
+height: 140px;
+color: white;
+padding: 20px;
+box-sizing: border-box;
+visibility: hidden;">
+
+<div style="
+position: absolute;
+right: 20px;
+top: -50px;
+font-size: 30px;
+color: #2f2f2f;
+text-align: right;
+"><span style="color:#ffffff5e" id="game_title_text">Star Defenders</span><br>
+<div style="font-size:12px;color:#355a52;">Launcher</div>
+</div>
+
+<!-- <label style="padding-left: 90px;">Connecting...</label> -->
+	<span class="sdtitle">Skin Name (Required):</span><br>
+	<input type="text" id="skinname" size="32" maxlength="32" value="">
+
+	<br><br>
+	<input type="button" style="background-color:#333333; width: 127px;" onclick="Export();" value="Export">
+	<input type="button" style="background-color:#333333; width: 127px;" onclick="CancelServer();" value="Cancel">
+<br>
+</div>
+
+
+
+<div id="importdialog" style="
+position: fixed;
+top: 50%;
+left: 50%;
+margin-left: -150px;
+margin-top: -325px;
+display: block;
+background-color: black;
+width: 300px;
+height: 680px;
+color: white;
+padding: 20px;
+box-sizing: border-box;
+visibility: hidden;
+">
+
+<div style="
+position: absolute;
+right: 20px;
+top: -50px;
+font-size: 30px;
+color: #2f2f2f;
+text-align: right;
+"><span style="color:#ffffff5e" id="game_title_text">Star Defenders</span><br>
+<div style="font-size:12px;color:#355a52;">Launcher</div>
+</div>
+<span class="sdtitle">Skins:</span>
+<div style=" top:0; width: 280px; height: 90%;
+box-sizing: border-box; background-color: black;
+overflow-y: auto;">
+
+<div id="skinlist" class="sdgroup">
+
+	
+</div>
+</div>
+
+<br>
+<!-- <input type="button" style="background-color:#333333; width: 127px;" onclick="GoAddServer();" value="Add Server">
+<input type="button" style="background-color:#333333; width: 127px;" onclick="ServerListObject.changeprofile();" value="Change Profile"> -->
+<input type="button" style="background-color:#333333; width: 258px;" onclick="CancelServer();" value="Cancel">
+
+<br>
+</div>
+
 	<script>
 		let ServerList;
 		let slist = document.getElementById("slist");
+		let skinlist = document.getElementById('skinlist');
 		let serversdiv = document.getElementById('settings_container2');
 		let connectingdiv = document.getElementById('settings_container');
 		let addserver = document.getElementById('addserver');
+		let exportdialog = document.getElementById('exportdialog');
+		let importdialog = document.getElementById('importdialog');
 
 		let serverip = document.getElementById('serverip');
 		let serverlocation = document.getElementById('serverlocation');
 		let serverdesc = document.getElementById('serverdesc');
+
+		let skinname = document.getElementById('skinname');
+
+		let selectedServer;
 
 		async function init(){
 			await CefSharp.BindObjectAsync("ServerListObject");
@@ -434,11 +525,42 @@ text-align: right;
 					slist.innerHTML += `<a class="server server${ServerList[i].Type}" onclick="Connect('${ServerList[i].IP}')">
 					${name}
 					<div>${ServerList[i].Location}<br>${ServerList[i].Description}</div>
-					${ServerList[i].BuiltIn ? "" : `<input type="button" style="background-color:#333333; width: 235px;" onclick="RemoveServer(event, ${i});" value="Remove">`}
+					<input type="button" style="background-color:#333333; width: 117px;" onclick="GoImportDialog(event, ${i});" value="Import Skin">
+					<input type="button" style="background-color:#333333; width: 117px;" onclick="GoExportDialog(event, ${i});" value="Export Skin">
+					${ServerList[i].BuiltIn ? "" : `<input type="button" style="background-color:#333333; width: 238px;" onclick="RemoveServer(event, ${i});" value="Remove">`}
 					</a>`;
 				}
 			});
 		}
+
+		function UpdateSkinList(){
+			skinlist.innerHTML = "";
+
+			ServerListObject.getSkins().then(function (res)
+			{
+				let skins = res;
+
+				for (var i = 0; i < skins.length; i++)
+				{
+					var name = skins[i].Name;
+					var IP = skins[i].IP;
+
+					if(IP.startsWith("https://"))
+						IP = IP.substring(8);
+
+					if(IP.startsWith("http://"))
+						IP = IP.substring(7);
+
+					skinlist.innerHTML += `<a class="server serverC" onclick="Import(event, ${i})">
+					${name}
+					<div>Exported from ${IP}</div>
+					<input type="button" style="background-color:#333333; width: 235px;" onclick="RemoveSkin(event, ${i});" value="Remove">
+					</a>`;
+				}
+			});
+		}
+
+		//${ServerList[i].BuiltIn ? "" : `<input type="button" style="background-color:#333333; width: 235px;" onclick="RemoveServer(event, ${i});" value="Remove">`}
 
 		function GoAddServer()
 		{
@@ -448,6 +570,32 @@ text-align: right;
 
 			serversdiv.style.visibility = 'hidden';
 			addserver.style.visibility = 'visible';
+		}
+
+		function GoExportDialog(e, server)
+		{
+			e.stopPropagation();
+
+			skinname.value = "";
+
+			selectedServer = server;
+
+			serversdiv.style.visibility = 'hidden';
+			exportdialog.style.visibility = 'visible';
+		}
+
+		function GoImportDialog(e, server)
+		{
+			e.stopPropagation();
+
+			skinlist.innerHTML = "";
+
+			selectedServer = server;
+
+			UpdateSkinList();
+
+			serversdiv.style.visibility = 'hidden';
+			importdialog.style.visibility = 'visible';
 		}
 
 		function AddServer(){
@@ -473,20 +621,68 @@ text-align: right;
 			});
 		}
 
+		function RemoveSkin(e, skin)
+		{
+			e.stopPropagation();
+
+			ServerListObject.removeskin(skin).then(function ()
+			{
+				UpdateSkinList();
+			});
+		}
+
 		function CancelServer(){
 			addserver.style.visibility = 'hidden';
+			exportdialog.style.visibility = 'hidden';
+			importdialog.style.visibility = 'hidden';
 			serversdiv.style.visibility = 'visible';
+
+			skinlist.innerHTML = "";
+
+			selectedServer = null;
+		}
+
+		function ExportDone()
+		{
+			CancelServer();
+		}
+
+		function ImportDone()
+		{
+			CancelServer();
+		}
+
+		function Export()
+		{
+			exportdialog.style.visibility = 'hidden';
+			connectingdiv.style.visibility = 'visible';
+
+			ServerListObject.exportdata(selectedServer, skinname.value).then(function (res){});
+		}
+
+		function Import(e, server)
+		{
+			e.stopPropagation();
+
+			importdialog.style.visibility = 'hidden';
+			connectingdiv.style.visibility = 'visible';
+
+			ServerListObject.importdata(selectedServer, server).then(function (res){});
 		}
 
 		//run it once
 		serversdiv.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
 		connectingdiv.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
 		addserver.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
+		exportdialog.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
+		importdialog.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
 
 		onresize = (event) => {
 			serversdiv.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
 			connectingdiv.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
 			addserver.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
+			exportdialog.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
+			importdialog.style.transform = 'scale(' + Math.min( document.body.clientWidth / 1260, Math.min( document.body.clientHeight / 760, 1 ) ) + ')';
 		};
 
 		init();

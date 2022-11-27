@@ -124,6 +124,7 @@
     <Compile Include="InternalSchemeFactory.cs" />
     <Compile Include="Handlers\KeyboardHandler.cs" />
     <Compile Include="Handlers\MenuHandler.cs" />
+    <Compile Include="Managers\SkinsManager.cs" />
     <Compile Include="ProfileCard.cs">
       <SubType>UserControl</SubType>
     </Compile>

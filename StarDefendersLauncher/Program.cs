@@ -14,7 +14,7 @@ namespace StarDefendersLauncher
     internal static class Program
     {
         public static string BasePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        public static string Version = "1.0.1";
+        public static string Version = "1.0.2";
 
         /// <summary>
         /// Główny punkt wejścia dla aplikacji.
@@ -33,6 +33,7 @@ namespace StarDefendersLauncher
 
             SettingsManager.Initialize();
             ServersManager.Initialize();
+            SkinsManager.Initialize();
 
             //GameForm form = new GameForm();
             ProfilePicker form = new ProfilePicker();

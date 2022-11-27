@@ -12,7 +12,9 @@ namespace StarDefendersLauncher
 {
     public partial class GameForm : Form
     {
-        bool isPlaying = false;
+        public LauncherState state = LauncherState.MainMenu;
+
+        //bool isPlaying = false;
 
         DiscordManager DM;
 
@@ -78,10 +80,13 @@ namespace StarDefendersLauncher
                 Invoke(new Action(() =>
                 {
                     browser.Load("about:blank");
+                    //make sure there's only one event handler
+                    browser.LoadingStateChanged -= Browser_LoadingStateChanged;
                     browser.LoadingStateChanged += Browser_LoadingStateChanged;
                     loadingBrowser.Load("launcher://Error.html");
                     LoadingPanel.Visible = true;
-                    isPlaying = false;
+                    //isPlaying = false;
+                    state = LauncherState.MainMenu;
 
                     DM.SetPresence(new RichPresence()
                     {
@@ -113,15 +118,50 @@ namespace StarDefendersLauncher
         {
             if (!e.IsLoading && browser.Address != "about:blank")
             {
-                Invoke(new Action(() =>
+                if (state == LauncherState.MainMenu)
                 {
-                    //Controls.Remove(LoadingPanel);
-                    loadingBrowser.Load("launcher://Loading.html");
-                    LoadingPanel.Visible = false;
-                    browser.LoadingStateChanged -= Browser_LoadingStateChanged;
-                    isPlaying = true;
-                    isConnecting = false;
-                }));
+                    Invoke(new Action(() =>
+                    {
+                        //Controls.Remove(LoadingPanel);
+                        loadingBrowser.Load("launcher://Loading.html");
+                        LoadingPanel.Visible = false;
+                        browser.LoadingStateChanged -= Browser_LoadingStateChanged;
+                        //isPlaying = true; 
+                        state = LauncherState.Playing;
+                        isConnecting = false;
+                    }));
+                }
+                else if (state == LauncherState.Exporting)
+                {
+                    Invoke(new Action(async () =>
+                    {
+                        await SkinsManager.ExportSkin(browser, toExport);
+
+                        browser.Load("about:blank");
+                        state = LauncherState.MainMenu;
+                        isConnecting = false;
+                        toExport = null;
+
+                        var script = @"ExportDone();";
+
+                        loadingBrowser.GetMainFrame().ExecuteJavaScriptAsync(script);
+                    }));
+                }else if(state == LauncherState.Importing)
+                {
+                    Invoke(new Action(async () =>
+                    {
+                        await SkinsManager.ImportSkin(browser, toImport);
+
+                        browser.Load("about:blank");
+                        state = LauncherState.MainMenu;
+                        isConnecting = false;
+                        toImport = null;
+
+                        var script = @"ExportDone();";
+
+                        loadingBrowser.GetMainFrame().ExecuteJavaScriptAsync(script);
+                    }));
+                }
 
             }
         }
@@ -229,7 +269,7 @@ namespace StarDefendersLauncher
 
         internal void ReturnLauncher()
         {
-            if (isPlaying)
+            if (state == LauncherState.Playing || state == LauncherState.Exporting || state == LauncherState.Importing)
             {
                 if(server != null && !server.HasExited)
                 {
@@ -241,9 +281,11 @@ namespace StarDefendersLauncher
                 Invoke(new Action(() =>
                 {
                     browser.Load("about:blank");
+                    
                     browser.LoadingStateChanged += Browser_LoadingStateChanged;
                     LoadingPanel.Visible = true;
-                    isPlaying = false;
+                    //isPlaying = false;
+                    state = LauncherState.MainMenu;
                     isConnecting = false;
 
                     DM.SetPresence(new RichPresence()
@@ -284,5 +326,32 @@ namespace StarDefendersLauncher
                 Environment.Exit(0);
             }));
         }
+
+        internal void ExportData(string IP, string Name)
+        {
+            isConnecting = true;
+            toExport = Name;
+            state = LauncherState.Exporting;
+            browser.Load(IP);
+        }
+
+        Skin toImport;
+        string toExport;
+
+        internal void ImportData(string IP, Skin skin)
+        {
+            isConnecting = true;
+            state = LauncherState.Importing;
+            toImport = skin;
+            browser.Load(IP);
+        }
+    }
+
+    public enum LauncherState
+    {
+        MainMenu,
+        Playing,
+        Exporting,
+        Importing
     }
 }

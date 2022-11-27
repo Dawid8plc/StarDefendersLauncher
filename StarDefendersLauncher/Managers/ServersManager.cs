@@ -22,7 +22,7 @@ namespace StarDefendersLauncher.Managers
             ServerList.Add(new Server() { IP = "https://stardefenders.io:3001", Type = "C", Location = "Canada, Quebec", Description = "Active development<br>Hosted by mrmcshroom -- EASY", BuiltIn = true });
             ServerList.Add(new Server() { IP = "https://stardefenders.io:3002", Type = "C", Location = "Canada, Quebec", Description = "Active development<br>Hosted by mrmcshroom -- PEACEFUL", BuiltIn = true });
             ServerList.Add(new Server() { IP = "https://stardefenders.io:4000", Type = "C", Location = "Canada, Quebec", Description = "Active development<br>Hosted by mrmcshroom, managed by Booraz.", BuiltIn = true });
-            ServerList.Add(new Server() { IP = "https://linstardefenders.live", Type = "C", Location = "Hong Kong", Description = "Active development<br>Hosted by Undriven", BuiltIn = true });
+            //ServerList.Add(new Server() { IP = "https://linstardefenders.live", Type = "C", Location = "Hong Kong", Description = "Active development<br>Hosted by Undriven", BuiltIn = true });
 
             serializer = new XmlSerializer(typeof(List<Server>));
 

@@ -14,7 +14,7 @@ namespace StarDefendersLauncher
     internal static class Program
     {
         public static string BasePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        public static string Version = "1.0.2";
+        public static string Version = "1.0.3";
 
         /// <summary>
         /// Główny punkt wejścia dla aplikacji.
@@ -28,8 +28,8 @@ namespace StarDefendersLauncher
 #if ANYCPU
             CefRuntime.SubscribeAnyCpuAssemblyResolver();
 #endif
-
-            Cef.EnableHighDPISupport();
+            //Removed in a cef update
+            //Cef.EnableHighDPISupport();
 
             SettingsManager.Initialize();
             ServersManager.Initialize();

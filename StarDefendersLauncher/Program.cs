@@ -14,7 +14,7 @@ namespace StarDefendersLauncher
     internal static class Program
     {
         public static string BasePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        public static string Version = "1.0.3";
+        public static string Version = "1.0.3.1";
 
         /// <summary>
         /// Główny punkt wejścia dla aplikacji.

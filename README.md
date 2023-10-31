@@ -21,4 +21,5 @@ The latest version can always be downloaded from [here](https://github.com/Dawid
 # Tips
 + Pressing Home key on your keyboard while playing on a server will return you back to the server list
 + Pressing F5 key will reconnect you to the server you're currently on
++ Pressing F10 will open the Debug Terminal, which is meant for connecting to the game server's debug port, allowing you to run commands on the server for testing or development purposes
 + Pressing F11 key will enter/leave fullscreen mode (you can even toggle fullscreen on game start up in settings)

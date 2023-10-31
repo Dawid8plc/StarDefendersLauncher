@@ -167,7 +167,8 @@ namespace StarDefendersLauncher
 
         private void NodeSocketTerminal_FormClosed(object sender, FormClosedEventArgs e)
         {
-            ws.Close();
+            if(ws != null)
+                ws.Close();
 
             if (Application.OpenForms.Count == 0)
                 Application.Exit();

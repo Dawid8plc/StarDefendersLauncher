@@ -17,6 +17,7 @@ The latest version can always be downloaded from [here](https://github.com/Dawid
 + Basic Discord Rich Presence - Displays the server you're playing on, can be disabled
 + Server List - Contains the most popular servers, with the option to add your own
 + Skin Presets - Export and import skins between different servers (experimental)
++ Debug Terminal - Run commands on the game server via the websocket debug port, and see their output
 
 # Tips
 + Pressing Home key on your keyboard while playing on a server will return you back to the server list

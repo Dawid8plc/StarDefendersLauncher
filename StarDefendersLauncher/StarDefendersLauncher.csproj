@@ -82,6 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TreeViewEx.cs" />
     <Compile Include="Handlers\PermissionHandler.cs" />
     <Compile Include="Managers\ServersManager.cs" />
     <Compile Include="Dialogs\SettingsDialog.cs">

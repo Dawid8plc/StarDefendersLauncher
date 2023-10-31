@@ -24,7 +24,6 @@ namespace StarDefendersLauncher
 
         private void closeBtn_Click(object sender, EventArgs e)
         {
-            ws.Close();
             Close();
         }
 
@@ -137,9 +136,7 @@ namespace StarDefendersLauncher
 
                 string ranCommand = RanCommands[ID];
 
-                TreeNode parent = Json2Tree(obj);
-                parent.Text = ranCommand;
-                jsonNodesView.Nodes.Add(parent);
+                jsonNodesView.AddObjectAsJson(obj, ranCommand);
 
                 jsonNodesView.Nodes[jsonNodesView.Nodes.Count - 1].EnsureVisible();
             });
@@ -151,7 +148,8 @@ namespace StarDefendersLauncher
                 return;
 
             string jsCode = commandBox.Text;
-            string evaluateCommand = $"{{ \"id\": {commandId}, \"method\": \"Runtime.evaluate\", \"params\": {{ \"expression\": \"{jsCode}\", \"contextId\": 1 }} }}";
+            jsCode = JsonConvert.ToString(jsCode);
+            string evaluateCommand = $"{{ \"id\": {commandId}, \"method\": \"Runtime.evaluate\", \"params\": {{ \"expression\": {jsCode}, \"contextId\": 1 }} }}";
 
             RanCommands.Add(commandId, commandBox.Text);
             commandId++;
@@ -169,89 +167,10 @@ namespace StarDefendersLauncher
 
         private void NodeSocketTerminal_FormClosed(object sender, FormClosedEventArgs e)
         {
+            ws.Close();
+
             if (Application.OpenForms.Count == 0)
                 Application.Exit();
-        }
-
-        private TreeNode Json2Tree(JObject obj)
-        {
-            //create the parent node
-            TreeNode parent = new TreeNode();
-            //loop through the obj. all token should be pair<key, value>
-            foreach (var token in obj)
-            {
-                //change the display Content of the parent
-                parent.Text = token.Key.ToString();
-                //create the child node
-                TreeNode child = new TreeNode();
-                child.Text = token.Key.ToString();
-                //check if the value is of type obj recall the method
-                if (token.Value.Type.ToString() == "Object")
-                {
-                    // child.Text = token.Key.ToString();
-                    //create a new JObject using the the Token.value
-                    JObject o = (JObject)token.Value;
-                    //recall the method
-                    child = Json2Tree(o);
-                    //add the child to the parentNode
-                    parent.Nodes.Add(child);
-                }
-                //if type is of array
-                else if (token.Value.Type.ToString() == "Array")
-                {
-                    int ix = -1;
-                    //  child.Text = token.Key.ToString();
-                    //loop though the array
-                    foreach (var itm in token.Value)
-                    {
-                        //check if value is an Array of objects
-                        if (itm.Type.ToString() == "Object")
-                        {
-                            TreeNode objTN = new TreeNode();
-                            //child.Text = token.Key.ToString();
-                            //call back the method
-                            ix++;
-
-                            JObject o = (JObject)itm;
-                            objTN = Json2Tree(o);
-                            objTN.Text = token.Key.ToString() + "[" + ix + "]";
-                            child.Nodes.Add(objTN);
-                            //parent.Nodes.Add(child);
-                        }
-                        //regular array string, int, etc
-                        else if (itm.Type.ToString() == "Array")
-                        {
-                            ix++;
-                            TreeNode dataArray = new TreeNode();
-                            foreach (var data in itm)
-                            {
-                                dataArray.Text = token.Key.ToString() + "[" + ix + "]";
-                                dataArray.Nodes.Add(data.ToString());
-                            }
-                            child.Nodes.Add(dataArray);
-                        }
-
-                        else
-                        {
-                            child.Nodes.Add(itm.ToString());
-                        }
-                    }
-                    parent.Nodes.Add(child);
-                }
-                else
-                {
-                    //if token.Value is not nested
-                    // child.Text = token.Key.ToString();
-                    //change the value into N/A if value == null or an empty string 
-                    if (token.Value.ToString() == "")
-                        child.Nodes.Add("N/A");
-                    else
-                        child.Nodes.Add(token.Value.ToString());
-                    parent.Nodes.Add(child);
-                }
-            }
-            return parent;
-
         }
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)

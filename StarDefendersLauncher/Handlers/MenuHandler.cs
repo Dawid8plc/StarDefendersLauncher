@@ -24,6 +24,10 @@ namespace StarDefendersLauncher.Handlers
             model.AddSeparator();
 
             model.AddItem((CefMenuCommand)26501, "Inspect element");
+
+            model.AddSeparator();
+
+            model.AddItem((CefMenuCommand)26503, "Debug Terminal");
         }
 
         public bool OnContextMenuCommand(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
@@ -37,6 +41,13 @@ namespace StarDefendersLauncher.Handlers
             if (commandId == (CefMenuCommand)26502)
             {
                 browser.GetHost().CloseDevTools();
+                return true;
+            }
+
+            if (commandId == (CefMenuCommand)26503)
+            {
+                NodeSocketTerminal terminal = new NodeSocketTerminal();
+                terminal.Show();
                 return true;
             }
 

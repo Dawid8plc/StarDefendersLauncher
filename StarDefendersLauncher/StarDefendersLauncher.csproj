@@ -77,6 +77,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="websocket-sharp, Version=1.0.2.59611, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebSocketSharp.1.0.3-rc11\lib\websocket-sharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Handlers\PermissionHandler.cs" />
@@ -125,6 +128,12 @@
     <Compile Include="Handlers\KeyboardHandler.cs" />
     <Compile Include="Handlers\MenuHandler.cs" />
     <Compile Include="Managers\SkinsManager.cs" />
+    <Compile Include="NodeSocketTerminal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NodeSocketTerminal.Designer.cs">
+      <DependentUpon>NodeSocketTerminal.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProfileCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -158,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NodeSocketTerminal.resx">
+      <DependentUpon>NodeSocketTerminal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProfileCard.resx">
       <DependentUpon>ProfileCard.cs</DependentUpon>

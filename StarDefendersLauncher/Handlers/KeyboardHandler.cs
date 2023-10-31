@@ -46,11 +46,15 @@ namespace StarDefendersLauncher.Handlers
                 browser.Reload();
             }
 
-
             if (type == KeyType.RawKeyDown && (Keys)windowsKeyCode == Keys.F12)
             {
                 browser.GetHost().ShowDevTools();
+            }
 
+            if (type == KeyType.RawKeyDown && (Keys)windowsKeyCode == Keys.F10)
+            {
+                NodeSocketTerminal terminal = new NodeSocketTerminal();
+                terminal.Show();
             }
 
             if (form != null && type == KeyType.RawKeyDown && (Keys)windowsKeyCode == Keys.Home)

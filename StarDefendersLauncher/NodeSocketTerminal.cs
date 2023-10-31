@@ -156,6 +156,12 @@ namespace StarDefendersLauncher
             RanCommands.Add(commandId, commandBox.Text);
             commandId++;
 
+            //Prevent overflow
+            if(commandId > 2147483640)
+            {
+                commandId = 0;
+            }
+
             ws.Send(evaluateCommand);
 
             commandBox.Text = string.Empty;

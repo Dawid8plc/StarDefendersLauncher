@@ -38,12 +38,42 @@ namespace StarDefendersLauncher
 
             for (int i = 0; i < Profiles.Count; i++)
             {
+                string defaultPath = Path.Combine(Profiles[i], "Default");
+
+                if (!Directory.Exists(Path.Combine(Profiles[i], "Default")))
+                {
+                    Directory.CreateDirectory(defaultPath);
+
+                    MoveDirectoryContents(Profiles[i], defaultPath);
+                }
+
                 ProfileCard card = new ProfileCard(Path.GetFileName(Profiles[i]), i % 2 == 0);
 
                 if(Profiles.Count >= 6)
                     card.Width = 447;
 
                 flowLayoutPanel1.Controls.Add(card);
+            }
+        }
+
+        private void MoveDirectoryContents(string sourceDir, string targetDir)
+        {
+            foreach (string filePath in Directory.GetFiles(sourceDir))
+            {
+                if (Path.GetFileName(filePath).Equals("Default", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                string destFilePath = Path.Combine(targetDir, Path.GetFileName(filePath));
+                File.Move(filePath, destFilePath);
+            }
+
+            foreach (string subDir in Directory.GetDirectories(sourceDir))
+            {
+                if (Path.GetFileName(subDir).Equals("Default", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                string destSubDir = Path.Combine(targetDir, Path.GetFileName(subDir));
+                Directory.Move(subDir, destSubDir);
             }
         }
 

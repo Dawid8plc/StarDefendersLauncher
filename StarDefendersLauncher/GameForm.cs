@@ -59,6 +59,7 @@ namespace StarDefendersLauncher
             browser.PermissionHandler = new PermissionHandler();
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.LoadError += Browser_LoadError;
+            browser.RequestHandler = new CustomRequestHandler();
 
             loadingBrowser.LoadingStateChanged += LoadingBrowser_LoadingStateChanged;
             loadingBrowser.KeyboardHandler = new KeyboardHandler(true);

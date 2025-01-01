@@ -46,5 +46,6 @@ namespace StarDefendersLauncher.Managers
         public bool IgnoreLoadErrors = false;
         public bool Fullscreen = false;
         public bool HideBuiltInServers = false;
+        public bool AllowExpiredCerts = false;
     }
 }

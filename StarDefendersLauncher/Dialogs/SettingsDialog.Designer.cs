@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsDialog));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.hideBIServersBox = new System.Windows.Forms.CheckBox();
             this.fullscreenBox = new System.Windows.Forms.CheckBox();
             this.IgnoreLoadErrorsBox = new System.Windows.Forms.CheckBox();
             this.DRPBox = new System.Windows.Forms.CheckBox();
@@ -37,7 +38,7 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.hideBIServersBox = new System.Windows.Forms.CheckBox();
+            this.allowExpiredCertBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +48,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Black;
+            this.panel1.Controls.Add(this.allowExpiredCertBox);
             this.panel1.Controls.Add(this.hideBIServersBox);
             this.panel1.Controls.Add(this.fullscreenBox);
             this.panel1.Controls.Add(this.IgnoreLoadErrorsBox);
@@ -59,12 +61,24 @@
             this.panel1.Size = new System.Drawing.Size(380, 199);
             this.panel1.TabIndex = 2;
             // 
+            // hideBIServersBox
+            // 
+            this.hideBIServersBox.AutoSize = true;
+            this.hideBIServersBox.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.hideBIServersBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(174)))), ((int)(((byte)(120)))));
+            this.hideBIServersBox.Location = new System.Drawing.Point(21, 84);
+            this.hideBIServersBox.Name = "hideBIServersBox";
+            this.hideBIServersBox.Size = new System.Drawing.Size(140, 17);
+            this.hideBIServersBox.TabIndex = 8;
+            this.hideBIServersBox.Text = "Hide built in servers";
+            this.hideBIServersBox.UseVisualStyleBackColor = true;
+            // 
             // fullscreenBox
             // 
             this.fullscreenBox.AutoSize = true;
             this.fullscreenBox.Font = new System.Drawing.Font("Verdana", 8.25F);
             this.fullscreenBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(174)))), ((int)(((byte)(120)))));
-            this.fullscreenBox.Location = new System.Drawing.Point(21, 60);
+            this.fullscreenBox.Location = new System.Drawing.Point(21, 52);
             this.fullscreenBox.Name = "fullscreenBox";
             this.fullscreenBox.Size = new System.Drawing.Size(129, 17);
             this.fullscreenBox.TabIndex = 7;
@@ -76,7 +90,7 @@
             this.IgnoreLoadErrorsBox.AutoSize = true;
             this.IgnoreLoadErrorsBox.Font = new System.Drawing.Font("Verdana", 8.25F);
             this.IgnoreLoadErrorsBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(174)))), ((int)(((byte)(120)))));
-            this.IgnoreLoadErrorsBox.Location = new System.Drawing.Point(21, 126);
+            this.IgnoreLoadErrorsBox.Location = new System.Drawing.Point(21, 118);
             this.IgnoreLoadErrorsBox.Name = "IgnoreLoadErrorsBox";
             this.IgnoreLoadErrorsBox.Size = new System.Drawing.Size(134, 17);
             this.IgnoreLoadErrorsBox.TabIndex = 6;
@@ -88,7 +102,7 @@
             this.DRPBox.AutoSize = true;
             this.DRPBox.Font = new System.Drawing.Font("Verdana", 8.25F);
             this.DRPBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(174)))), ((int)(((byte)(120)))));
-            this.DRPBox.Location = new System.Drawing.Point(21, 30);
+            this.DRPBox.Location = new System.Drawing.Point(21, 22);
             this.DRPBox.Name = "DRPBox";
             this.DRPBox.Size = new System.Drawing.Size(195, 17);
             this.DRPBox.TabIndex = 5;
@@ -150,17 +164,17 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Settings";
             // 
-            // hideBIServersBox
+            // allowExpiredCertBox
             // 
-            this.hideBIServersBox.AutoSize = true;
-            this.hideBIServersBox.Font = new System.Drawing.Font("Verdana", 8.25F);
-            this.hideBIServersBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(174)))), ((int)(((byte)(120)))));
-            this.hideBIServersBox.Location = new System.Drawing.Point(21, 92);
-            this.hideBIServersBox.Name = "hideBIServersBox";
-            this.hideBIServersBox.Size = new System.Drawing.Size(140, 17);
-            this.hideBIServersBox.TabIndex = 8;
-            this.hideBIServersBox.Text = "Hide built in servers";
-            this.hideBIServersBox.UseVisualStyleBackColor = true;
+            this.allowExpiredCertBox.AutoSize = true;
+            this.allowExpiredCertBox.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.allowExpiredCertBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(174)))), ((int)(((byte)(120)))));
+            this.allowExpiredCertBox.Location = new System.Drawing.Point(21, 150);
+            this.allowExpiredCertBox.Name = "allowExpiredCertBox";
+            this.allowExpiredCertBox.Size = new System.Drawing.Size(169, 17);
+            this.allowExpiredCertBox.TabIndex = 9;
+            this.allowExpiredCertBox.Text = "Allow expired certificates";
+            this.allowExpiredCertBox.UseVisualStyleBackColor = true;
             // 
             // SettingsDialog
             // 
@@ -195,5 +209,6 @@
         private System.Windows.Forms.CheckBox IgnoreLoadErrorsBox;
         private System.Windows.Forms.CheckBox fullscreenBox;
         private System.Windows.Forms.CheckBox hideBIServersBox;
+        private System.Windows.Forms.CheckBox allowExpiredCertBox;
     }
 }

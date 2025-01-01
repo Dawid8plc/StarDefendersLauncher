@@ -18,6 +18,7 @@ namespace StarDefendersLauncher.Dialogs
             IgnoreLoadErrorsBox.Checked = SettingsManager.Settings.IgnoreLoadErrors;
             fullscreenBox.Checked = SettingsManager.Settings.Fullscreen;
             hideBIServersBox.Checked = SettingsManager.Settings.HideBuiltInServers;
+            allowExpiredCertBox.Checked = SettingsManager.Settings.AllowExpiredCerts;
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
@@ -38,6 +39,7 @@ namespace StarDefendersLauncher.Dialogs
             SettingsManager.Settings.IgnoreLoadErrors = IgnoreLoadErrorsBox.Checked;
             SettingsManager.Settings.Fullscreen = fullscreenBox.Checked;
             SettingsManager.Settings.HideBuiltInServers = hideBIServersBox.Checked;
+            SettingsManager.Settings.AllowExpiredCerts = allowExpiredCertBox.Checked;
 
             SettingsManager.Save();
 
